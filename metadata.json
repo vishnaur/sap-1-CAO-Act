@@ -1,0 +1,6 @@
+{
+  "name": "SAP-1 Computer Architecture Simulator",
+  "description": "Interactive visual simulator of Albert Malvino's Simple-As-Possible 1 (SAP-1) computer architecture, featuring 6-state ring counter execution, central W-bus data flow, 16x8 RAM, registers, and binary LED output.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

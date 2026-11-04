@@ -1,0 +1,225 @@
+@import "tailwindcss";
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  }
+  
+  code, kbd, samp, pre, .font-mono {
+    font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+    font-feature-settings: "tnum" 1;
+  }
+}
+
+:root {
+  /* Purble Place Plum Palette */
+  --purble-deep-eggplant: #0d0009;
+  --purble-rich-plum: #58063f;
+  --purble-magenta: #912e73;
+  --purble-orchid-pink: #c56eab;
+  --purble-soft-lilac: #f9d9ef;
+
+  /* Balatro Roguelike Casino Palette */
+  --balatro-bg-blue: #182c4d;
+  --balatro-bg-red: #8f1d2c;
+  --balatro-chips-blue: #00a8ff;
+  --balatro-mult-red: #e84118;
+  --balatro-gold: #fbc531;
+  --balatro-card-stock: #f5f6fa;
+  --balatro-tray-dark: #20242d;
+  --balatro-felt-green: #1b5e20;
+}
+
+/* ================= BALATRO HYPNOTIC CRT SWIRL BACKGROUND ================= */
+.balatro-swirl-bg {
+  background: 
+    radial-gradient(circle at 30% 40%, rgba(214, 48, 49, 0.75) 0%, transparent 50%),
+    radial-gradient(circle at 75% 65%, rgba(0, 168, 255, 0.65) 0%, transparent 50%),
+    radial-gradient(circle at 50% 80%, rgba(142, 68, 173, 0.7) 0%, transparent 55%),
+    radial-gradient(circle at 80% 20%, rgba(232, 65, 24, 0.8) 0%, transparent 45%),
+    linear-gradient(135deg, #1b2838 0%, #2b111e 50%, #0d1b2a 100%);
+  background-size: 200% 200%;
+  animation: balatroSwirl 18s ease infinite alternate;
+}
+
+@keyframes balatroSwirl {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 100%;
+  }
+}
+
+/* Authentic Balatro CRT Scanlines Overlay */
+.balatro-crt-overlay {
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.22) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.02), rgba(0, 255, 0, 0.01), rgba(0, 0, 255, 0.02));
+  background-size: 100% 3px, 4px 100%;
+  pointer-events: none;
+}
+
+/* Balatro Tactile Playing Card */
+.balatro-card {
+  background: #f8f9fa;
+  border: 2px solid #2f3542;
+  box-shadow: 0 4px 0 #1e2229, 0 6px 12px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.balatro-card:hover {
+  transform: translateY(-4px) rotate(-1deg);
+  box-shadow: 0 8px 0 #1e2229, 0 10px 16px rgba(0, 0, 0, 0.4);
+}
+
+.balatro-card-active {
+  transform: translateY(-6px) scale(1.04) !important;
+  border-color: #fbc531 !important;
+  box-shadow: 0 8px 0 #b38808, 0 12px 20px rgba(251, 197, 49, 0.4) !important;
+}
+
+/* Balatro Red Mult & Blue Chips Buttons */
+.balatro-btn-mult {
+  background: linear-gradient(180deg, #ff5733 0%, #e84118 70%, #c0392b 100%);
+  border: 2px solid #ffa07a;
+  box-shadow: 0 4px 0 #871f07, 0 6px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.1s ease;
+}
+
+.balatro-btn-mult:hover {
+  background: linear-gradient(180deg, #ff6b4a 0%, #ff5733 70%, #d32f2f 100%);
+}
+
+.balatro-btn-mult:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #871f07, 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.balatro-btn-chips {
+  background: linear-gradient(180deg, #33b5e5 0%, #00a8ff 70%, #0077b6 100%);
+  border: 2px solid #90e0ef;
+  box-shadow: 0 4px 0 #004c75, 0 6px 10px rgba(0, 0, 0, 0.3);
+  transition: all 0.1s ease;
+}
+
+.balatro-btn-chips:hover {
+  background: linear-gradient(180deg, #48cae4 0%, #33b5e5 70%, #0288d1 100%);
+}
+
+.balatro-btn-chips:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 #004c75, 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.balatro-btn-gold {
+  background: linear-gradient(180deg, #fbc531 0%, #e1b12c 70%, #b8860b 100%);
+  border: 2px solid #ffeaa7;
+  box-shadow: 0 4px 0 #7f5c00, 0 6px 10px rgba(0, 0, 0, 0.3);
+  color: #1e272e;
+}
+
+/* Casino Poker Felt Texture */
+.casino-felt {
+  background-color: #104e28;
+  background-image: 
+    radial-gradient(ellipse at center, rgba(34, 139, 34, 0.4) 0%, rgba(10, 45, 20, 0.8) 100%),
+    radial-gradient(circle at 20px 20px, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 16px 16px;
+}
+
+/* ================= PURBLE PLACE COMFY CAKES STYLING ================= */
+.bakery-wallpaper {
+  background-color: #f7a8c4;
+  background-image: 
+    radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 60%),
+    radial-gradient(circle at 12px 12px, rgba(255, 255, 255, 0.25) 2px, transparent 2px),
+    linear-gradient(180deg, #f9b8cf 0%, #f48eb0 100%);
+  background-size: 100% 100%, 32px 32px, 100% 100%;
+}
+
+.bakery-checker-floor {
+  background-color: #2e1d40;
+  background-image: 
+    linear-gradient(45deg, #c5b9dc 25%, transparent 25%), 
+    linear-gradient(-45deg, #c5b9dc 25%, transparent 25%), 
+    linear-gradient(45deg, transparent 75%, #c5b9dc 75%), 
+    linear-gradient(-45deg, transparent 75%, #c5b9dc 75%);
+  background-size: 48px 48px;
+  background-position: 0 0, 0 24px, 24px -24px, -24px 0px;
+}
+
+.conveyor-slats-animated {
+  background: repeating-linear-gradient(
+    90deg,
+    #3d4046 0px,
+    #4a4e56 4px,
+    #696f7b 14px,
+    #7a8290 18px,
+    #4a4e56 26px,
+    #2c2f35 30px
+  );
+  background-size: 60px 100%;
+  animation: conveyorSlatMove 1.2s linear infinite;
+}
+
+@keyframes conveyorSlatMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 60px 0;
+  }
+}
+
+.comfy-button {
+  background: linear-gradient(180deg, #fffcf2 0%, #ffeed0 60%, #fedb9c 100%);
+  border: 2px solid #e2be75;
+  box-shadow: 0 3px 0 #caa052, 0 4px 6px rgba(0, 0, 0, 0.15);
+  transition: all 0.1s ease;
+}
+
+.comfy-button-active {
+  background: linear-gradient(180deg, #f9d9ef 0%, #c56eab 70%, #912e73 100%) !important;
+  border-color: #58063f !important;
+  box-shadow: 0 2px 0 #3b0229, 0 4px 8px rgba(88, 6, 63, 0.3) !important;
+  color: #ffffff !important;
+}
+
+.foot-pedal-green {
+  background: linear-gradient(180deg, #9ae64a 0%, #76cb2b 60%, #5ba81c 100%);
+  border: 3px solid #4a8d14;
+  box-shadow: 0 5px 0 #3a700f, 0 6px 8px rgba(0, 0, 0, 0.25);
+  transition: all 0.1s ease;
+}
+
+.foot-pedal-green:hover {
+  background: linear-gradient(180deg, #a8f058 0%, #83d837 60%, #64b522 100%);
+}
+
+.foot-pedal-green:active {
+  transform: translateY(3px);
+  box-shadow: 0 2px 0 #3a700f, 0 3px 4px rgba(0, 0, 0, 0.25);
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.7);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #384252;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #00a8ff;
+}
