@@ -228,14 +228,7 @@ export const CakeVisualizer: React.FC<CakeVisualizerProps> = ({
 
         {/* Central Conveyor Belt Floor with the Cake Pan traveling across */}
         <div className="relative mt-6 mb-2">
-          {/* Exit Ramp (Top Right diagonal ramp from screenshot) */}
-          <div className="absolute -top-12 right-0 w-24 h-24 pointer-events-none opacity-90 hidden sm:block">
-            <div className="w-16 h-28 bg-[#3d4046] border-2 border-slate-600 rotate-45 rounded shadow-lg flex flex-col justify-around py-1">
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="w-full h-1 bg-slate-500" />
-              ))}
-            </div>
-          </div>
+        
 
           {/* Conveyor Belt Platform (Metallic curved slats like screenshot) */}
           <div className="relative w-full h-16 rounded-xl border-4 border-[#2b2d32] shadow-2xl overflow-hidden flex items-center justify-between px-4 conveyor-slats-animated">
