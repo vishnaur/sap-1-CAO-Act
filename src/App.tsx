@@ -484,6 +484,7 @@ export default function App() {
       <MalvinoGuideModal
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
+        currentTheme={currentTheme}
       />
     </div>
   );
