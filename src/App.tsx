@@ -11,7 +11,7 @@ import {
 } from './utils/sap1Core';
 import { CpuState, SampleProgramPreset, TraceStep } from './types/sap1';
 import { AppTheme, THEME_CONFIGS } from './types/theme';
-import { Header } from './components/Header';
+import { Sidebar } from './components/Sidebar';
 import { ControlDeck } from './components/ControlDeck';
 import { BlockDiagram } from './components/BlockDiagram';
 import { CakeVisualizer } from './components/CakeVisualizer';
@@ -48,6 +48,8 @@ export default function App() {
   const [traceLog, setTraceLog] = useState<TraceStep[]>([]);
   const [activeTab, setActiveTab] = useState<'diagram' | 'ram' | 'trace'>('diagram');
   const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false);
+  const [isConsoleOpen, setIsConsoleOpen] = useState<boolean>(true);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState<boolean>(false);
 
   // Derived memory entries
   const memoryEntries = buildMemoryEntries(memory);
@@ -178,7 +180,7 @@ export default function App() {
 
   return (
     <div
-      className={`min-h-screen flex flex-col font-sans transition-colors ${
+      className={`min-h-screen flex flex-row font-sans transition-colors ${
         isBalatro
           ? 'bg-[#0f111a] text-[#f5f6fa]'
           : isPurble
@@ -186,8 +188,10 @@ export default function App() {
           : 'bg-[#0b0f19] text-slate-100'
       }`}
     >
-      {/* 3-Zone Navigation Header */}
-      <Header
+      {/* Left Collapsible Sidebar Menu (Top Header moved to left side) */}
+      <Sidebar
+        isCollapsed={isSidebarCollapsed}
+        onToggleCollapse={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
         activeTab={activeTab}
         onTabChange={setActiveTab}
         onOpenGuide={() => setIsGuideOpen(true)}
@@ -197,10 +201,14 @@ export default function App() {
         isHalted={cpuState.isHalted}
         currentTheme={currentTheme}
         onThemeChange={setCurrentTheme}
+        cycleCount={cpuState.cycleCount}
+        instructionCount={cpuState.instructionCount}
       />
 
-      {/* Main Container */}
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0 min-h-screen overflow-x-hidden">
+        {/* Main Container */}
+        <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 flex flex-col gap-6">
         {/* Banner with Theme Context & Target Calculation */}
         <div
           className={`border-4 rounded-2xl p-4 shadow-xl flex flex-wrap items-center justify-between gap-4 transition-all ${
@@ -342,6 +350,7 @@ export default function App() {
           onReset={handleReset}
           cycleCount={cpuState.cycleCount}
           instructionCount={cpuState.instructionCount}
+          currentTheme={currentTheme}
         />
 
         {/* View Selection Tabs */}
@@ -393,11 +402,31 @@ export default function App() {
         {/* Active Tab View */}
         {activeTab === 'diagram' && (
           <div className="flex flex-col gap-6">
-            <BlockDiagram
-              cpuState={cpuState}
-              memoryEntries={memoryEntries}
-              memory={memory}
-            />
+            {/* Collapsible Header Toggle */}
+            <div className="flex justify-end -mb-2">
+              <button
+                onClick={() => setIsConsoleOpen(!isConsoleOpen)}
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold border transition-all cursor-pointer shadow-md ${
+                  isBalatro
+                    ? 'bg-[#1b222c] text-white border-[#384556] hover:bg-[#283241]'
+                    : isPurble
+                    ? 'bg-[#58063f] text-[#f9d9ef] border-[#c56eab] hover:bg-[#912e73]'
+                    : 'bg-slate-800 text-slate-100 border-slate-700 hover:bg-slate-700'
+                }`}
+              >
+                {isConsoleOpen ? '▲ Collapse Register Console' : '▼ Expand Register Console'}
+              </button>
+            </div>
+
+            {/* Collapsible Block Diagram */}
+            {isConsoleOpen && (
+              <BlockDiagram
+                cpuState={cpuState}
+                memoryEntries={memoryEntries}
+                memory={memory}
+                currentTheme={currentTheme}
+              />
+            )}
 
             {/* RAM Table and Trace Log side by side below diagram */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -411,10 +440,12 @@ export default function App() {
                 onReset={handleReset}
                 dataInputs={dataInputs}
                 onUpdateDataInput={handleUpdateDataInput}
+                currentTheme={currentTheme}
               />
               <TimingTraceLog
                 traceLog={traceLog}
                 onClearLog={() => setTraceLog([])}
+                currentTheme={currentTheme}
               />
             </div>
           </div>
@@ -431,6 +462,7 @@ export default function App() {
             onReset={handleReset}
             dataInputs={dataInputs}
             onUpdateDataInput={handleUpdateDataInput}
+            currentTheme={currentTheme}
           />
         )}
 
@@ -438,20 +470,21 @@ export default function App() {
           <TimingTraceLog
             traceLog={traceLog}
             onClearLog={() => setTraceLog([])}
+            currentTheme={currentTheme}
           />
         )}
-      </main>
+        </main>
+        {/* Footer */}
+        <footer className="border-t-2 border-slate-800 bg-black/40 py-4 px-6 text-center text-xs opacity-70">
+          Changeable Theme System: 🃏 Balatro Roguelike Casino · 🧁 Purble Place Comfy Cakes · ⚡ Albert Malvino TTL Lab
+        </footer>
+      </div>
 
       {/* Architecture Theory Modal */}
       <MalvinoGuideModal
         isOpen={isGuideOpen}
         onClose={() => setIsGuideOpen(false)}
       />
-
-      {/* Footer */}
-      <footer className="border-t-2 border-slate-800 bg-black/40 py-4 px-6 text-center text-xs opacity-70">
-        Changeable Theme System: 🃏 Balatro Roguelike Casino · 🧁 Purble Place Comfy Cakes · ⚡ Albert Malvino TTL Lab
-      </footer>
     </div>
   );
 }
